@@ -4,6 +4,7 @@ import loginIcon from "../assets/signin.gif";
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import imageTobase64 from "../helpers/imageTobase64";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -27,6 +28,13 @@ const SignUp = () => {
     });
   };
 
+  const handleUploadPic = async (e) => {
+    const file = e.target.files[0];
+
+    const imagePic = await imageTobase64(file);
+    console.log("imagePic", imagePic);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
   };
@@ -37,8 +45,22 @@ const SignUp = () => {
     <section id="signup">
       <div className="mx-auto container p-4">
         <div className="bg-white p-2 py-5 w-full max-w-sm mx-auto rounded">
-          <div className="w-20 h-20 mx-auto ">
-            <img src={loginIcon} alt="login icon" className="rounded-full " />
+          <div className="w-20 h-20 mx-auto relative overflow-hidden rounded-full">
+            <div>
+              <img src={loginIcon} alt="login icon" />
+            </div>
+            <form>
+              <label>
+                <div className="text-xs bg-slate-200/80 pb-4 pt-2 cursor-pointer text-center absolute bottom-0 w-full">
+                  Upload Photo
+                </div>
+                <input
+                  type="file"
+                  className="hidden"
+                  onChange={handleUploadPic}
+                />
+              </label>
+            </form>
           </div>
 
           <form className="" onSubmit={handleSubmit}>
