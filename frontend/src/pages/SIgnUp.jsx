@@ -13,8 +13,8 @@ const SignUp = () => {
     email: "",
     password: "",
     name: "",
-    ConfirmPassword: "",
-    profilepic: "",
+    confirmPassword: "",
+    profilePic: "",
   });
 
   const handleOnChange = (e) => {
@@ -32,7 +32,13 @@ const SignUp = () => {
     const file = e.target.files[0];
 
     const imagePic = await imageTobase64(file);
-    console.log("imagePic", imagePic);
+
+    setData((prev) => {
+      return {
+        ...prev,
+        profilePic: imagePic,
+      };
+    });
   };
 
   const handleSubmit = (e) => {
@@ -47,12 +53,12 @@ const SignUp = () => {
         <div className="bg-white p-2 py-5 w-full max-w-sm mx-auto rounded">
           <div className="w-20 h-20 mx-auto relative overflow-hidden rounded-full">
             <div>
-              <img src={loginIcon} alt="login icon" />
+              <img src={data.profilePic || loginIcon} alt="login icon" />
             </div>
             <form>
               <label>
-                <div className="text-xs bg-slate-200/80 pb-4 pt-2 cursor-pointer text-center absolute bottom-0 w-full">
-                  Upload Photo
+                <div className="text-xs bg-slate-200/80 pb-2 cursor-pointer text-center absolute bottom-0 w-full">
+                  Add Photo
                 </div>
                 <input
                   type="file"
@@ -73,6 +79,7 @@ const SignUp = () => {
                   name="name"
                   value={data.name}
                   onChange={handleOnChange}
+                  required
                   className="w-full h-full outline-none bg-transparent"
                 />
               </div>
@@ -87,6 +94,7 @@ const SignUp = () => {
                   name="email"
                   value={data.email}
                   onChange={handleOnChange}
+                  required
                   className="w-full h-full outline-none bg-transparent"
                 />
               </div>
@@ -101,6 +109,7 @@ const SignUp = () => {
                   name="password"
                   value={data.password}
                   onChange={handleOnChange}
+                  required
                   className="w-full h-full outline-none bg-transparent"
                 />
                 <div
@@ -119,8 +128,9 @@ const SignUp = () => {
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="confirm password"
                   name="confirmPassword"
-                  value={data.ConfirmPassword}
+                  value={data.confirmPassword}
                   onChange={handleOnChange}
+                  required
                   className="w-full h-full outline-none bg-transparent"
                 />
                 <div
