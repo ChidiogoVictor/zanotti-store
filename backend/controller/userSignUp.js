@@ -5,6 +5,7 @@ const userSignUpController = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
+
     // Validate required fields
     if (!email || !password || !name) {
       return res.status(400).json({

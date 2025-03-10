@@ -9,6 +9,7 @@ dotenv.config(); // Load environment variables
 const app = express();
 
 app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(express.json()); // ✅ FIX: Enable JSON body parsing
 
 app.use("/api", router); // Middleware to use the router for all "/api" routes
 
