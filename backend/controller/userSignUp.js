@@ -5,7 +5,6 @@ const userSignUpController = async (req, res) => {
   try {
     const { email, password, name } = req.body;
 
-
     // Validate required fields
     if (!email || !password || !name) {
       return res.status(400).json({
@@ -30,7 +29,12 @@ const userSignUpController = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
 
     // Create and save the user
-    const newUser = new userModel({ email, password: hashedPassword, name });
+    const newUser = new userModel({
+      email,
+      password: hashedPassword,
+      role: "GENERAL",
+      name,
+    });
     const savedUser = await newUser.save();
 
     res.status(201).json({

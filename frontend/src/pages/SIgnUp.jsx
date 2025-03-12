@@ -3,9 +3,10 @@ import loginIcon from "../assets/signin.gif";
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import imageTobase64 from "../helpers/imageTobase64";
 import summaryApi from "../common";
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -17,6 +18,8 @@ const SignUp = () => {
     confirmPassword: "",
     profilePic: "",
   });
+
+  const navigate = useNavigate();
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
@@ -56,13 +59,18 @@ const SignUp = () => {
 
       const responseData = await dataResponse.json();
 
-      console.log("data", responseData);
+      if (responseData.success) {
+        toast.success(responseData.message);
+        navigate("/login");
+      }
+
+      if (responseData.error) {
+        toast.error(responseData.message);
+      }
     } else {
       console.log("Please check password and confirm password");
     }
   };
-
-  console.log("data login", data);
 
   return (
     <section id="signup">
