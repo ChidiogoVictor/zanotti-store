@@ -54,9 +54,9 @@ const SignUp = () => {
         body: JSON.stringify(data),
       });
 
-      const data = await dataResponse.json();
+      const responseData = await dataResponse.json();
 
-      console.log("data", data);
+      console.log("data", responseData);
     } else {
       console.log("Please check password and confirm password");
     }
