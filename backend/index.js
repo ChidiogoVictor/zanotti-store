@@ -9,7 +9,11 @@ dotenv.config(); // Load environment variables
 
 const app = express();
 
-app.use(cors()); // Enable Cross-Origin Resource Sharing
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+  })
+); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // ✅ FIX: Enable JSON body parsing
 app.use(cookieParser());
 
