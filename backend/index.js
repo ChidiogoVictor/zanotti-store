@@ -12,6 +12,7 @@ const app = express();
 app.use(
   cors({
     origin: process.env.FRONTEND_URL,
+    credentials: true,
   })
 ); // Enable Cross-Origin Resource Sharing
 app.use(express.json()); // ✅ FIX: Enable JSON body parsing

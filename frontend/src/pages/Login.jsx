@@ -3,8 +3,9 @@ import loginIcon from "../assets/signin.gif";
 
 import { FaEye } from "react-icons/fa";
 import { FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import summaryApi from "../common";
 
 const Login = () => {
   // State to manage password visibility
@@ -15,6 +16,8 @@ const Login = () => {
     email: "",
     password: "",
   });
+
+  const navigate = useNavigate()
 
   // Handles input changes and updates state dynamically
   const handleOnChange = (e) => {
@@ -34,8 +37,8 @@ const Login = () => {
 
     try {
       // Sending login data to API
-      const dataResponse = await fetch(SummaryApi.signIn.url, {
-        method: SummaryApi.signIn.method,
+      const dataResponse = await fetch(summaryApi.signIn.url, {
+        method: summaryApi.signIn.method,
         credentials: "include",
         headers: {
           "content-type": "application/json",
@@ -48,6 +51,7 @@ const Login = () => {
       if (dataApi.success) {
         // TODO: Handle successful login (e.g., store token, redirect user)
         toast.success(dataApi.message);
+        navigate("/")
       } else {
         // TODO: Handle login failure (e.g., show error message)
         toast.error(dataApi.message);
